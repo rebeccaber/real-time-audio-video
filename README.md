@@ -38,8 +38,9 @@ Class diagram for the playback application.
 [Sequence diagram for receiving and playing audio frames.](https://raw.githubusercontent.com/chandlerebecca/oneway-video-conference/master/diagrams/Playback_AudioProcessors_SequenceDiagram.png "Sequence diagram for receiving and playing audio frames.")
 
 __Problems Encountered:__
-- _Audio buffer underrun_: The soundcard needs audio frames continuously delivered for playback.  If there are no frames available (a frame does not arrive fast enough), there is a break in audio, and a buffer underrun error occurs.  TCP frames do not always arive with precisely the same latency.  On the Beaglebone, the longer latencies can be improved by speeding up the CPU so that the incoming TCP connection is checked more frequently and frames are processed more quickly.
-This problem still exists.  From my understanding apps like Skype compress or extend  the length an audio clip plays to accomodate frames being recieved in a variable time frame.  And, rather than TCP they use UDP which is faster but with unreliable delivery.  It is part of the Realtime Transfer Protocol which is widely used in media streaming.
+- _Audio buffer underrun_: The soundcard needs audio frames continuously delivered for playback.  If there are no frames available (a frame does not arrive fast enough), there is a break in audio, and a buffer underrun error occurs.  TCP frames do not always arive with precisely the same latency.
+<br/>This problem is native to real-time audio across a network.  From my understanding apps like Skype compress or extend the length an audio clip plays to accomodate frames being recieved in a variable time frame.  And, rather than TCP they use UDP which is faster but with unreliable delivery.  It is part of the Realtime Transfer Protocol which is widely used in media streaming.
+<br/>On the Beaglebone, the longer latencies can be improved by speeding up the CPU to check for TCP messages more frequently.  Even with this advantage, buffer underruns eventually occur.
 
 
 ### (Short) Build and run instructions:
